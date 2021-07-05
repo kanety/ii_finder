@@ -13,7 +13,7 @@ describe IIFinder::Config do
     end
 
     it 'gets and sets' do
-      expect(IIFinder::Config.lookup_cache).to eq(false)
+      expect(IIFinder.config.lookup_cache).to eq(false)
     end
   end
 end

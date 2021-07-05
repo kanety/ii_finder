@@ -1,6 +1,6 @@
 # IIFinder
 
-A base finder to simplify building relations from parameters.
+A base finder to support building relations from parameters.
 
 ## Dependencies
 
@@ -56,7 +56,7 @@ UsersFinder.call(User.where(id: [1, 2, 3]), name: 'NAME').to_sql
 
 ### Finder
 
-Finder loops setting of `parameters` and call the corresponding method with value of parameter as argument.
+Finder loops keys of `parameters` and call the corresponding method with value of parameter as argument.
 Finder method will not be called when the value of parameter is blank.
 If you want to receive such value, set `allow_blank` as follows:
 
@@ -72,8 +72,6 @@ end
 UsersFinder.call(name: '').to_sql
 #=> SELECT "users".* FROM "users" WHERE "users"."name" = ''
 ```
-
-#### Attributes
 
 Finder has following attributes:
 
@@ -95,8 +93,6 @@ UsersFinder.call(name: 'NAME')
 #   model: User
 #   table: #<Arel::Table ...>
 ```
-
-#### Return value
 
 Return value of each finder method is merged into `@relation` if it is a kind of `ActiveRecord::Relation`.
 In case you want to merge by yourself, set configuration as follows:
@@ -158,17 +154,8 @@ end
 class UsersFinder < IIFinder::Base
 end
 
-IIFinder::Lookup.call(UsersFinder)
+IIFinder::Base.lookup(UsersFinder)
 #=> User
-
-class Namespaced::User < ActiveRecord::Base
-end
-
-class Namespaced::UsersFinder < IIFinder::Base
-end
-
-IIFinder::Lookup.call(Namespaced::UsersFinder)
-#=> Namespaced::User
 ```
 
 Note that superclass of finder is also looked up until related model is found.
@@ -180,10 +167,10 @@ end
 class UsersFinder < IIFinder::Base
 end
 
-class Inherited::UsersFinder < UsersFinder
+class InheritedUsersFinder < UsersFinder
 end
 
-IIFinder::Lookup.call(Inherited::UsersFinder)
+IIFinder::Base.lookup(InheritedUsersFinder)
 #=> User
 ```
 

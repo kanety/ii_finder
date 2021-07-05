@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = IIFinder::VERSION
   spec.authors       = ["Yoshikazu Kaneta"]
   spec.email         = ["kaneta@sitebridge.co.jp"]
-  spec.summary       = %q{A base finder to simplify building relations from parameters}
-  spec.description   = %q{A base finder to simplify building relations from parameters}
+  spec.summary       = %q{A base finder to support building relations from parameters}
+  spec.description   = %q{A base finder to support building relations from parameters}
   spec.homepage      = "https://github.com/kanety/ii_finder"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
