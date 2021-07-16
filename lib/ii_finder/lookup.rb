@@ -19,13 +19,13 @@ module IIFinder
     end
 
     class << self
-      class_attribute :_cache
-      self._cache = {}
+      class_attribute :cache
+      self.cache = {}
 
       def call(klass)
         return if terminate?(klass)
 
-        cache(klass) do
+        with_cache(klass) do
           if klass.name && (resolved = resolve(klass))
             resolved
           elsif klass.superclass
@@ -36,9 +36,9 @@ module IIFinder
 
       private
 
-      def cache(klass)
+      def with_cache(klass)
         if Config.lookup_cache
-          self._cache[klass] ||= yield
+          self.cache[klass] ||= yield
         else
           yield
         end
