@@ -8,5 +8,8 @@ require "ii_finder"
 
 module Dummy
   class Application < Rails::Application
+    config.after_initialize do
+      IIFinder::LogSubscriber.attach_to(:ii_finder)
+    end
   end
 end

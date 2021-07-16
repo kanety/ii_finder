@@ -3,6 +3,7 @@
 require_relative 'core'
 require_relative 'parameters'
 require_relative 'callbacks'
+require_relative 'instrumentation'
 require_relative 'lookup'
 
 module IIFinder
@@ -10,6 +11,7 @@ module IIFinder
     include Core
     include Parameters
     include Callbacks
+    include Instrumentation
     include Lookup
   end
 end
