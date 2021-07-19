@@ -187,6 +187,21 @@ User.finder_scope(name: 'NAME').to_sql
 #=> SELECT "users".* FROM "users" WHERE "users"."name" = 'NAME'
 ```
 
+### Logging
+
+Finder supports instrumentation hook supplied by `ActiveSupport::Notifications`.
+You can enable log subscriber as follows:
+
+```ruby
+IIFinder::LogSubscriber.attach_to :ii_finder
+```
+
+This subscriber will write logs in debug mode as the following example:
+
+```
+Called UsersFinder with {:id=>1} (Duration: 9.9ms, Allocations: 915)
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome at https://github.com/kanety/ii_finder.
