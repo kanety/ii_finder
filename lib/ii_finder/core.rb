@@ -19,7 +19,7 @@ module IIFinder
         @criteria = args[1]
         @model = @relation.klass
       end
-      @table = @model.arel_table
+      @table = @model.arel_table if @model.respond_to?(:arel_table)
     end
 
     def call
