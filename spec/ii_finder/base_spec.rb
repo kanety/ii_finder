@@ -35,6 +35,24 @@ describe IIFinder::Base do
     end
   end
 
+  context 'merge result' do
+    let :finder do
+      UsersFinder
+    end
+
+    context 'relation' do
+      it 'finds records' do
+        expect(finder.call(id: 1).size).to eq(1)
+      end
+    end
+
+    context 'hash' do
+      it 'finds records' do
+        expect(finder.call(query: { where: { id: 1 } }).size).to eq(1)
+      end
+    end
+  end
+
   context 'properties' do
     let :finder do
       UsersFinder.new(id: 1)

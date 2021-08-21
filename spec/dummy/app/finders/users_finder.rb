@@ -1,5 +1,6 @@
 class UsersFinder < IIFinder::Base
-  parameters :id, :name, :order 
+  parameters :id, :name, :order
+  parameters :query
 
   def id(value)
     @relation.where(id: value)
@@ -11,5 +12,9 @@ class UsersFinder < IIFinder::Base
 
   def order(value)
     @relation.order(value[:column] => value[:direction])
+  end
+
+  def query(hash)
+    hash
   end
 end

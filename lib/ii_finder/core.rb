@@ -44,7 +44,7 @@ module IIFinder
     def call_method(name, value)
       result = send(name, value)
 
-      if Config.merge_relation && result.is_a?(ActiveRecord::Relation)
+      if result.respond_to?(:merge) && Config.merge_relation
         @relation = @relation.merge(result)
       end
     end
