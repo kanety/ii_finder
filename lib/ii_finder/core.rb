@@ -34,10 +34,10 @@ module IIFinder
     end
 
     def fetch_criteria(name)
-      if @criteria.respond_to?(name)
-        @criteria.send(name)
-      elsif @criteria.respond_to?(:fetch)
+      if @criteria.respond_to?(:fetch)
         @criteria.fetch(name, nil)
+      elsif @criteria.respond_to?(name)
+        @criteria.send(name)
       end
     end
 
