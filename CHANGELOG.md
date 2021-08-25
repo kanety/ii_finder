@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.2
+
+Try fetch prior to calling instance method.
+
 ## 1.1.1
 
 * Check arel_table existence for model.
