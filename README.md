@@ -141,6 +141,51 @@ Note that finder does not handle the return value of callback.
 When you want to update `@relation` in the callback,
 reassign `@relation` or use methods like `where!` or `order!`.
 
+#### Chain
+
+You can chain multiple finders by using `chain`. For example:
+
+```ruby
+class NameFinder < IIFinder::Base
+  parameters :name
+
+  def name(value)
+    @relation.where(name: value)
+  end
+end
+
+class AgeFinder < IIFinder::Base
+  parameters :age
+
+  def age(value)
+    @relation.where(age: value)
+  end
+end
+
+class ItemsFinder < IIFinder::Base
+  chain NameFinder, AgeFinder
+end
+
+ItemsFinder.call(Item.all, name: 'name', age: 10).to_sql
+#=> SELECT "items".* FROM "items" WHERE "items"."name" = 'name' AND "items"."age" = 10
+```
+
+You can also use method or block to find finder class dynamically:
+
+```ruby
+class ItemFinder < IIFinder::Base
+  chain -> { NameFinder }
+end
+
+class ItemFinder < IIFinder::Base
+  chain :chain_finder
+
+  def chain_finder
+    NameFinder
+  end
+end
+```
+
 ### Lookup for model
 
 Finder lookups related model by its class name when the first argument of `call` is not relation.

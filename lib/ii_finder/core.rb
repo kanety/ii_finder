@@ -9,6 +9,7 @@ module IIFinder
     end
 
     def initialize(*args)
+      @_args = args;
       if args.size == 0 || args.size == 1
         @model = self.class.lookup
         raise IIFinder::Error.new("could not find model for #{self.class}") unless @model
@@ -26,7 +27,7 @@ module IIFinder
       self.class._parameters.each do |param|
         value = fetch_criteria(param.name)
         if value.present? || param.allow_blank?
-          call_method(param.name, value)
+          merge_relation!(send(param.name, value))
         end
       end
 
@@ -41,11 +42,9 @@ module IIFinder
       end
     end
 
-    def call_method(name, value)
-      result = send(name, value)
-
-      if result.respond_to?(:merge) && Config.merge_relation
-        @relation = @relation.merge(result)
+    def merge_relation!(relation)
+      if relation.respond_to?(:merge) && Config.merge_relation
+        @relation = @relation.merge(relation)
       end
     end
 
