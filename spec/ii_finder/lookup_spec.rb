@@ -1,11 +1,11 @@
 describe IIFinder::Lookup do
   context 'finder' do
     let :finder do
-      UsersFinder
+      ItemsFinder
     end
 
     it 'lookups model' do
-      expect(finder.lookup).to eq(User)
+      expect(finder.lookup).to eq(Item)
     end
   end
 
@@ -21,21 +21,21 @@ describe IIFinder::Lookup do
 
   context 'inherited finder' do
     let :finder do
-      Lookups::UsersFinder
+      Lookups::ItemsFinder
     end
 
     it 'lookups model' do
-      expect(finder.lookup).to eq(Lookups::User)
+      expect(finder.lookup).to eq(Lookups::Item)
     end
   end
 
   context 'inherited finder' do
     let :finder do
-      Lookups::SharedUsersFinder
+      Lookups::SharedItemsFinder
     end
 
     it 'lookups superclass model' do
-      expect(finder.lookup).to eq(User)
+      expect(finder.lookup).to eq(Item)
     end
   end
 
@@ -45,7 +45,7 @@ describe IIFinder::Lookup do
     end
 
     it 'lookups model' do
-      expect(finder.lookup).to eq(User)
+      expect(finder.lookup).to eq(Item)
     end
   end
 end

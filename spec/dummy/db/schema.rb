@@ -12,11 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2021_06_23_043451) do
 
-  create_table "users", force: :cascade do |t|
+  create_table "items", force: :cascade do |t|
     t.string "name"
     t.integer "age"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

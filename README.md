@@ -24,14 +24,14 @@ Then execute:
 Prepare model:
 
 ```ruby
-class User < ActiveRecord::Base
+class Item < ActiveRecord::Base
 end
 ```
 
 Prepare finder:
 
 ```ruby
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
   parameters :name
 
   def name(value)
@@ -43,15 +43,15 @@ end
 Use finder as follows:
 
 ```ruby
-UsersFinder.call(name: 'NAME').to_sql
-#=> SELECT "users".* FROM "users" WHERE "users"."name" = 'NAME'
+ItemsFinder.call(name: 'NAME').to_sql
+#=> SELECT "items".* FROM "items" WHERE "items"."name" = 'NAME'
 ```
 
 You can also specify relation as first argument:
 
 ```ruby
-UsersFinder.call(User.where(id: [1, 2, 3]), name: 'NAME').to_sql
-#=> SELECT "users".* FROM "users" WHERE "users"."id" IN (1, 2, 3) AND "users"."name" = 'NAME'
+ItemsFinder.call(Item.where(id: [1, 2, 3]), name: 'NAME').to_sql
+#=> SELECT "items".* FROM "items" WHERE "items"."id" IN (1, 2, 3) AND "items"."name" = 'NAME'
 ```
 
 ### Finder
@@ -61,7 +61,7 @@ Finder method will not be called when the value of parameter is blank.
 If you want to receive such value, set `allow_blank` as follows:
 
 ```ruby
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
   parameters :name, allow_blank: true
 
   def name(value)
@@ -69,14 +69,14 @@ class UsersFinder < IIFinder::Base
   end
 end
 
-UsersFinder.call(name: '').to_sql
-#=> SELECT "users".* FROM "users" WHERE "users"."name" = ''
+ItemsFinder.call(name: '').to_sql
+#=> SELECT "items".* FROM "items" WHERE "items"."name" = ''
 ```
 
 Finder has following attributes:
 
 ```ruby
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
   parameters :name
 
   def name(value)
@@ -87,10 +87,10 @@ class UsersFinder < IIFinder::Base
   end
 end
 
-UsersFinder.call(name: 'NAME')
-#=> relation: #<User::ActiveRecord_Relation:
+ItemsFinder.call(name: 'NAME')
+#=> relation: #<Item::ActiveRecord_Relation:
 #   criteria: {:name=>'NAME'}
-#   model: User
+#   model: Item
 #   table: #<Arel::Table ...>
 ```
 
@@ -102,7 +102,7 @@ IIFinder.configure do |config|
   config.merge_relation = false
 end
 
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
   parameters :name
 
   def name(value)
@@ -110,8 +110,8 @@ class UsersFinder < IIFinder::Base
   end
 end
 
-UsersFinder.call(name: 'NAME').to_sql
-#=> SELECT "users".* FROM "users" WHERE "users"."name" = 'NAME'
+ItemsFinder.call(name: 'NAME').to_sql
+#=> SELECT "items".* FROM "items" WHERE "items"."name" = 'NAME'
 ```
 
 #### Callbacks
@@ -125,7 +125,7 @@ Following callbacks are available.
 For example:
 
 ```ruby
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
   after_call :default_order
 
   def default_order
@@ -133,8 +133,8 @@ class UsersFinder < IIFinder::Base
   end
 end
 
-UsersFinder.call.to_sql
-#=> SELECT "users".* FROM "users" ORDER BY "users"."id" DESC
+ItemsFinder.call.to_sql
+#=> SELECT "items".* FROM "items" ORDER BY "items"."id" DESC
 ```
 
 Note that finder does not handle the return value of callback.
@@ -148,30 +148,30 @@ So the name of finder class should be composed of the name of model class.
 For example:
 
 ```ruby
-class User < ActiveRecord::Base
+class Item < ActiveRecord::Base
 end
 
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
 end
 
-IIFinder::Base.lookup(UsersFinder)
-#=> User
+IIFinder::Base.lookup(ItemsFinder)
+#=> Item
 ```
 
 Note that superclass of finder is also looked up until related model is found.
 
 ```ruby
-class User < ActiveRecord::Base
+class Item < ActiveRecord::Base
 end
 
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
 end
 
-class InheritedUsersFinder < UsersFinder
+class InheritedItemsFinder < ItemsFinder
 end
 
-IIFinder::Base.lookup(InheritedUsersFinder)
-#=> User
+IIFinder::Base.lookup(InheritedItemsFinder)
+#=> Item
 ```
 
 ### Scope for model
@@ -179,12 +179,12 @@ IIFinder::Base.lookup(InheritedUsersFinder)
 In case you want to call finder from model, include `IIFinder::Scope` into model as follows:
 
 ```ruby
-class User < ActiveRecord::Base
+class Item < ActiveRecord::Base
   include IIFinder::Scope
 end
 
-User.finder_scope(name: 'NAME').to_sql
-#=> SELECT "users".* FROM "users" WHERE "users"."name" = 'NAME'
+Item.finder_scope(name: 'NAME').to_sql
+#=> SELECT "items".* FROM "items" WHERE "items"."name" = 'NAME'
 ```
 
 ### Logging
@@ -199,7 +199,7 @@ IIFinder::LogSubscriber.attach_to :ii_finder
 This subscriber will write logs in debug mode as the following example:
 
 ```
-Called UsersFinder with {:id=>1} (Duration: 9.9ms, Allocations: 915)
+Called ItemsFinder with {:id=>1} (Duration: 9.9ms, Allocations: 915)
 ```
 
 ## Contributing

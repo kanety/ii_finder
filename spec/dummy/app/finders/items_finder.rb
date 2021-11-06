@@ -1,4 +1,4 @@
-class UsersFinder < IIFinder::Base
+class ItemsFinder < IIFinder::Base
   parameters :id, :name, :order
   parameters :query
 

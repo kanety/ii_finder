@@ -1,12 +1,12 @@
 describe IIFinder::Base do
   context 'initialize' do
     let :finder do
-      UsersFinder
+      ItemsFinder
     end
 
     context 'with relation' do
       it 'finds records' do
-        expect(finder.call(User.all, id: 1).size).to eq(1)
+        expect(finder.call(Item.all, id: 1).size).to eq(1)
       end
     end
 
@@ -19,7 +19,7 @@ describe IIFinder::Base do
 
   context 'call' do
     let :finder do
-      UsersFinder
+      ItemsFinder
     end
 
     context 'criteria with hash' do
@@ -37,7 +37,7 @@ describe IIFinder::Base do
 
   context 'merge result' do
     let :finder do
-      UsersFinder
+      ItemsFinder
     end
 
     context 'relation' do
@@ -55,7 +55,7 @@ describe IIFinder::Base do
 
   context 'properties' do
     let :finder do
-      UsersFinder.new(id: 1)
+      ItemsFinder.new(id: 1)
     end
 
     it 'gets relation' do
@@ -63,7 +63,7 @@ describe IIFinder::Base do
     end
 
     it 'gets table' do
-      expect(finder.table).to eq(User.arel_table)
+      expect(finder.table).to eq(Item.arel_table)
     end
 
     it 'gets criteria' do

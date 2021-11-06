@@ -1,3 +1,3 @@
 class Lookups::ModelSetFinder < IIFinder::Base
-  model User
+  model Item
 end

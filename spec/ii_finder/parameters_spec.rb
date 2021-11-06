@@ -1,7 +1,7 @@
 describe IIFinder::Parameters do
   context 'allow_blank' do
     let :finder do
-      Parameters::AllowBlankUsersFinder
+      Parameters::AllowBlankItemsFinder
     end
 
     it 'finds records' do
