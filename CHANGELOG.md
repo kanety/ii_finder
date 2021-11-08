@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## 1.2.0
+
+* Add chain feature.
+
 ## 1.1.2
 
-Try fetch prior to calling instance method.
+* Try fetch prior to calling instance method.
 
 ## 1.1.1
 
