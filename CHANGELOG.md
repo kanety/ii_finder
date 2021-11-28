@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.0
+
+* Replace chain feature with coactive.
+
 ## 1.2.0
 
 * Add chain feature.
