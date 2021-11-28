@@ -1,4 +1,5 @@
 require 'active_support'
+require 'coactive'
 
 require 'ii_finder/version'
 require 'ii_finder/config'

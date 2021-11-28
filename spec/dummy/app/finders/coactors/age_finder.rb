@@ -1,4 +1,4 @@
-class Chains::AgeFinder < IIFinder::Base
+class Coactors::AgeFinder < IIFinder::Base
   parameters :age
 
   def age(value)

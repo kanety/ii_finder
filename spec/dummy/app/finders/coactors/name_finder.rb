@@ -1,4 +1,4 @@
-class Chains::NameFinder < IIFinder::Base
+class Coactors::NameFinder < IIFinder::Base
   parameters :name
 
   def name(value)

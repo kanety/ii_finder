@@ -5,7 +5,7 @@ require_relative 'parameters'
 require_relative 'callbacks'
 require_relative 'instrumentation'
 require_relative 'lookup'
-require_relative 'chain'
+require_relative 'coactors'
 
 module IIFinder
   class Base
@@ -14,6 +14,6 @@ module IIFinder
     include Callbacks
     include Instrumentation
     include Lookup
-    include Chain
+    include Coactors
   end
 end

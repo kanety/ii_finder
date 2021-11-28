@@ -141,9 +141,9 @@ Note that finder does not handle the return value of callback.
 When you want to update `@relation` in the callback,
 reassign `@relation` or use methods like `where!` or `order!`.
 
-#### Chain
+#### Coactors
 
-You can chain multiple finders by using `chain`. For example:
+You can chain multiple finders by using `coact`. For example:
 
 ```ruby
 class NameFinder < IIFinder::Base
@@ -163,28 +163,14 @@ class AgeFinder < IIFinder::Base
 end
 
 class ItemsFinder < IIFinder::Base
-  chain NameFinder, AgeFinder
+  coact NameFinder, AgeFinder
 end
 
 ItemsFinder.call(Item.all, name: 'name', age: 10).to_sql
 #=> SELECT "items".* FROM "items" WHERE "items"."name" = 'name' AND "items"."age" = 10
 ```
 
-You can also use method or block to find finder class dynamically:
-
-```ruby
-class ItemFinder < IIFinder::Base
-  chain -> { NameFinder }
-end
-
-class ItemFinder < IIFinder::Base
-  chain :chain_finder
-
-  def chain_finder
-    NameFinder
-  end
-end
-```
+See [coactive](https://github.com/kanety/coactive) for more `coact` examples:
 
 ### Lookup for model
 
