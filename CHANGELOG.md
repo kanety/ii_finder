@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1
+
+* Return relation after callbacks called.
+
 ## 2.0.0
 
 * Replace chain feature with coactive.
