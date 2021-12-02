@@ -13,6 +13,8 @@ module IIFinder
       run_callbacks :call do
         super
       end
+
+      @relation
     end
 
     class_methods do
