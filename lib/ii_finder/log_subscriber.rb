@@ -2,12 +2,21 @@
 
 module IIFinder
   class LogSubscriber < ActiveSupport::LogSubscriber
+    def calling(event)
+      debug do
+        finder = event.payload[:finder]
+        "Calling #{finder.class} with #{finder.criteria}"
+      end
+    end
+
     def call(event)
       debug do
         finder = event.payload[:finder]
-        "Called #{finder.class} with #{finder.criteria} (#{additional_log(event)})"
+        "Called #{finder.class} (#{additional_log(event)})"
       end
     end
+
+    private
 
     def additional_log(event)
       additions = ["Duration: %.1fms" % event.duration]

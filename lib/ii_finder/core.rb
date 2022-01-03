@@ -23,6 +23,13 @@ module IIFinder
       @table = @model.arel_table if @model.respond_to?(:arel_table)
     end
 
+    def call_all
+      coactors.each do |finder|
+        merge_relation!(finder.call(*@_args))
+      end
+      call
+    end
+
     def call
       self.class._parameters.each do |param|
         value = fetch_criteria(param.name)
@@ -50,7 +57,7 @@ module IIFinder
 
     class_methods do
       def call(*args)
-        new(*args).call
+        new(*args).call_all
       end
     end
   end

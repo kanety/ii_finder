@@ -230,7 +230,9 @@ IIFinder::LogSubscriber.attach_to :ii_finder
 This subscriber will write logs in debug mode as the following example:
 
 ```
-Called ItemsFinder with {:id=>1} (Duration: 9.9ms, Allocations: 915)
+Calling ItemsFinder with {:id=>1}
+...
+Called ItemsFinder (Duration: 9.9ms, Allocations: 915)
 ```
 
 ## Contributing

@@ -18,12 +18,5 @@ module IIFinder
         alias_method :chain, :coact
       end
     end
-
-    def call
-      coactors.each do |finder|
-        merge_relation!(finder.call(*@_args))
-      end
-      super
-    end
   end
 end
