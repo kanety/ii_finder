@@ -3,29 +3,29 @@
 module IIFinder
   module Core
     extend ActiveSupport::Concern
+    include Coactive::Initializer
 
     included do
-      attr_reader :relation, :criteria, :model, :table
+      self.context_class = IIFinder::Context
+      context :relation, output: true
+      context :criteria, :model, :table
     end
 
     def initialize(*args)
-      @_args = args;
-      if args.size == 0 || args.size == 1
-        @model = self.class.lookup
-        raise IIFinder::Error.new("could not find model for #{self.class}") unless @model
-        @relation = @model.all
-        @criteria = args[0] || {}
+      if args[0].is_a?(self.class.context_class)
+        super(args[0])
       else
-        @relation = args[0]
-        @criteria = args[1]
-        @model = @relation.klass
+        relation, criteria = Core.resolve_args(self, *args)
+        model = relation.klass
+        table = model.arel_table if model.respond_to?(:arel_table)
+        super(relation: relation, criteria: criteria, model: model, table: table)
       end
-      @table = @model.arel_table if @model.respond_to?(:arel_table)
     end
 
     def call_all
       coactors.each do |finder|
-        merge_relation!(finder.call(*@_args))
+        relation = finder.call(@context)
+        @context.relation = @context.relation.merge(relation) if relation.respond_to?(:merge)
       end
       call
     end
@@ -37,8 +37,6 @@ module IIFinder
           merge_relation!(send(param.name, value))
         end
       end
-
-      @relation
     end
 
     def fetch_criteria(name)
@@ -57,7 +55,20 @@ module IIFinder
 
     class_methods do
       def call(*args)
-        new(*args).call_all
+        finder = new(*args).tap(&:call_all)
+        finder.context.relation
+      end
+    end
+
+    class << self
+      def resolve_args(finder, *args)
+        if args.size == 0 || args.size == 1
+          model = finder.class.lookup
+          raise IIFinder::Error.new("could not find model for #{finder.class}") unless model
+          return model.all,  args[0] || {}
+        else
+          return args[0], args[1]
+        end
       end
     end
   end

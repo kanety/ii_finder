@@ -5,7 +5,7 @@ module IIFinder
     def calling(event)
       debug do
         finder = event.payload[:finder]
-        "Calling #{finder.class} with #{finder.criteria}"
+        "Calling #{finder.class} with #{finder.context}"
       end
     end
 

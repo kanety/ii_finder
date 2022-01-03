@@ -5,6 +5,8 @@ require_relative 'parameters'
 require_relative 'callbacks'
 require_relative 'instrumentation'
 require_relative 'lookup'
+require_relative 'context'
+require_relative 'contextualizer'
 require_relative 'coactors'
 
 module IIFinder
@@ -14,6 +16,7 @@ module IIFinder
     include Callbacks
     include Instrumentation
     include Lookup
+    include Contextualizer
     include Coactors
   end
 end

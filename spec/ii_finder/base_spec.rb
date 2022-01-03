@@ -59,15 +59,19 @@ describe IIFinder::Base do
     end
 
     it 'gets relation' do
-      expect(finder.relation).to be_a_kind_of(ActiveRecord::Relation)
-    end
-
-    it 'gets table' do
-      expect(finder.table).to eq(Item.arel_table)
+      expect(finder.context.relation).to be_a_kind_of(ActiveRecord::Relation)
     end
 
     it 'gets criteria' do
-      expect(finder.criteria).to eq(id: 1)
+      expect(finder.context.criteria).to eq(id: 1)
+    end
+
+    it 'gets model' do
+      expect(finder.context.model).to eq(Item)
+    end
+
+    it 'gets table' do
+      expect(finder.context.table).to eq(Item.arel_table)
     end
   end
 end
