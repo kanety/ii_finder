@@ -6,7 +6,8 @@ module IIFinder
 
     self.data = {
       lookup_cache: true,
-      merge_relation: true
+      merge_relation: true,
+      traversal: :postorder,
     }
 
     data.keys.each do |key|

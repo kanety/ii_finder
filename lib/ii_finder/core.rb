@@ -23,11 +23,20 @@ module IIFinder
     end
 
     def call_all
-      coactors.each do |finder|
-        relation = finder.call(@context)
+      planned = case IIFinder.config.traversal
+        when :preorder
+          [self] + coactors
+        when :postorder
+          coactors + [self]
+        when :inorder
+          planned = coactors.in_groups(2, false)
+          planned[0] + [self] + planned[1]
+        end
+
+      planned.each do |finder|
+        relation = finder == self ? call : finder.call(@context)
         @context.relation = @context.relation.merge(relation) if relation.respond_to?(:merge)
       end
-      call
     end
 
     def call
