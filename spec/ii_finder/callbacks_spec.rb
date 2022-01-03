@@ -1,6 +1,6 @@
 describe IIFinder::Callbacks do
   context 'before' do
-    [Callbacks::BeforeFinder, Callbacks::BeforeAssignFinder].each do |finder|
+    [Callbacks::BeforeAllFinder, Callbacks::BeforeCallFinder].each do |finder|
       context finder do
         it 'calls callback' do
           expect(finder.call.size).to eq(1)
@@ -10,7 +10,7 @@ describe IIFinder::Callbacks do
   end
 
   context 'after' do
-    [Callbacks::AfterFinder, Callbacks::AfterAssignFinder].each do |finder|
+    [Callbacks::AfterAllFinder, Callbacks::AfterCallFinder].each do |finder|
       context finder do
         it 'calls callback' do
           expect(finder.call.size).to eq(1)
@@ -20,7 +20,7 @@ describe IIFinder::Callbacks do
   end
 
   context 'around' do
-    [Callbacks::AroundFinder, Callbacks::AroundAssignFinder].each do |finder|
+    [Callbacks::AroundAllFinder, Callbacks::AroundCallFinder].each do |finder|
       context finder do
         it 'calls callback' do
           expect(finder.call.size).to eq(1)
