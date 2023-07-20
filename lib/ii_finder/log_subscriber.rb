@@ -5,14 +5,14 @@ module IIFinder
     def calling(event)
       debug do
         finder = event.payload[:finder]
-        "Calling #{finder.class} with #{finder.context}"
+        "  Calling #{finder.class} with #{finder.context}"
       end
     end
 
     def call(event)
       debug do
         finder = event.payload[:finder]
-        "Called #{finder.class} (#{additional_log(event)})"
+        "  Called #{finder.class} (#{additional_log(event)})"
       end
     end
 
