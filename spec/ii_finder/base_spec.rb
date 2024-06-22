@@ -30,7 +30,8 @@ describe IIFinder::Base do
 
     context 'criteria with object' do
       it 'finds records' do
-        expect(finder.call(OpenStruct.new(id: 1)).size).to eq(1)
+        struct = Struct.new('TestObject', :id)
+        expect(finder.call(struct.new(1)).size).to eq(1)
       end
     end
   end
