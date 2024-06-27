@@ -2,14 +2,14 @@
 
 module IIFinder
   class LogSubscriber < ActiveSupport::LogSubscriber
-    def calling(event)
+    def start_call_all(event)
       debug do
         finder = event.payload[:finder]
         "  Calling #{finder.class} with #{finder.context}"
       end
     end
 
-    def call(event)
+    def process_call(event)
       debug do
         finder = event.payload[:finder]
         "  Called #{finder.class} (#{additional_log(event)})"
