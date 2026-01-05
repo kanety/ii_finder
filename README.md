@@ -4,8 +4,8 @@ A base finder to support building relations from parameters.
 
 ## Dependencies
 
-* ruby 2.3+
-* activesupport 5.0+
+* ruby 3.0+
+* activesupport 7.0+
 
 ## Installation
 
